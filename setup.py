@@ -14,7 +14,7 @@ from setuptools import setup
 
 setup(
     name = 'jsonclientHGMMP',
-    version = '0.0.3',
+    version = '0.0.4',
     description = "Mapping JSON to objects and vice versa, this is a product of Christopher Lenz and Matthew Good with slight modifications",
     long_description = '',
     author = 'Martin Peschke',
