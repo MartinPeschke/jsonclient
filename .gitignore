@@ -3,6 +3,11 @@
 # C extensions
 *.so
 
+
+
+
+tmpo
+
 # Packages
 *.egg
 *.egg-info
