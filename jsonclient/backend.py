@@ -1,12 +1,28 @@
 from httplib2 import Http
 import simplejson
 import logging
-
+from datetime import date, datetime
 
 ### local imports
 from . import Mapping
 
 log = logging.getLogger(__name__)
+
+class DateAwareEncoder(simplejson.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, (date, datetime)):
+            return obj.strftime("%Y-%m-%d")
+        return simplejson.JSONEncoder.default(self, obj)
+
+
+
+
+
+
+
+
+
+
 
 class DBMessage(Exception):
     def __init__(self, message, result_key = None):
@@ -76,7 +92,7 @@ class Backend(object):
     endpoint = self.get_endpoint_url(options['url'])
     log.debug("Endpoint: %s, Method: %s, Headers: %s", endpoint, method, headers)
     if method == "POST":
-      data = simplejson.dumps(options['data'])
+      data = simplejson.dumps(options['data'], cls=DateAwareEncoder)
       log.debug("DATA: %s", data)
       resp, content = h.request(endpoint, method=method, body = data, headers=headers)
     else:
