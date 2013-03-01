@@ -1,3 +1,5 @@
+import logging
+log = logging.getLogger(__name__)
 all_cacheds = {}
 
 class CachedLoader(object):
