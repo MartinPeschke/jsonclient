@@ -193,6 +193,20 @@ class Mapping(object):
         """
         return self._data.items()
 
+    def isEmptyModel(self):
+        empty = True
+        for k, field in self._fields.items():
+            v = getattr(self, k)
+            if isinstance(field, DictField) and isinstance(v, Mapping):
+                empty = empty and v.isEmptyModel()
+            elif isinstance(field, ListField) and isinstance(field.field, DictField):
+                empty = empty and len([val for val in v if val.isEmptyModel()]) > 0
+            elif isinstance(field, ListField) and isinstance(field.field, Field):
+                empty = empty and len([val for val in v if not val]) > 0
+            else:
+                empty = empty and not v
+        return empty > 0
+
 
 class TextField(Field):
     """Mapping field for string values."""
@@ -207,7 +221,6 @@ class IntegerField(Field):
     """Mapping field for integer values."""
     _to_python = int
 
-    
 class BaseUnitField(Field):
     """Mapping field for integer values."""
     def _to_python(self, value):
