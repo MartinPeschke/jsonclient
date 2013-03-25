@@ -38,12 +38,11 @@ class RedirectRoute(BaseRoute):
         self.route_args = args
         self.route_kwargs = kwargs
 
-    def setup(self, apps, config):
-        for app in apps:
-            route_name =self.getRouteName(app.name)
-            config.add_route(route_name, self.path_exp)
-            view = redirectView(self.getRouteName(app.name, self.to_route), *self.route_args, **self.route_kwargs)
-            config.add_view(view, route_name = route_name)
+    def setup(self, app, config):
+        route_name =self.getRouteName(app.name)
+        config.add_route(route_name, self.path_exp)
+        view = redirectView(self.getRouteName(app.name, self.to_route), *self.route_args, **self.route_kwargs)
+        config.add_view(view, route_name = route_name)
 
 
 

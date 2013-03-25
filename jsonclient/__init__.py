@@ -196,7 +196,10 @@ class Mapping(object):
     def isEmptyModel(self):
         empty = True
         for k, field in self._fields.items():
-            v = getattr(self, k)
+            try:
+                v = getattr(self, k)
+            except ValueError, e:
+                v = None
             if isinstance(field, DictField) and isinstance(v, Mapping):
                 empty = empty and v.isEmptyModel()
             elif isinstance(field, ListField) and isinstance(field.field, DictField):
