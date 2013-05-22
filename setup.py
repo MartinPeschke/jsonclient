@@ -13,8 +13,8 @@ from setuptools import setup
 
 
 setup(
-    name = 'jsonclientHGMMP',
-    version = '0.0.504',
+    name = 'hncapiclient',
+    version = '0.1.0',
     description = "Mapping JSON to objects and vice versa, this is a product of Christopher Lenz and Matthew Good with slight modifications",
     long_description = '',
     author = 'Martin Peschke',
@@ -23,5 +23,5 @@ setup(
     license = 'BSD',
     zip_safe = False,
     url = 'https://github.com',
-    packages = ['jsonclient']
+    packages = ['hncapiclient']
 )
